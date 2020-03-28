@@ -1,9 +1,11 @@
-var port = process.env.PORT || 8080
+const https = require('https');
 var adler32 = require('./lib/adler32');
 var Game = require('./lib/game');
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
+// Let Heroku decide port
+var port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname + '/public'));
 
