@@ -7,10 +7,8 @@ const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
 
 const app = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname + '/public'}))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-app.use(express.static(__dirname + '/public'));
 
 var adler32 = require('./lib/adler32');
 var Game = require('./lib/game');
