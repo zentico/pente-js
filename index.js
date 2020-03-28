@@ -2,9 +2,14 @@ var adler32 = require('./lib/adler32');
 var Game = require('./lib/game');
 var express = require('express');
 var app = express();
-var server = app.listen(3000);
+var http = require('http').Server(app);
 
 app.use(express.static(__dirname + '/public'));
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
 
 var DEBUG = true;
 var ALLGAMES = {}; //
@@ -35,7 +40,7 @@ function gameState(hash) {
     Socket Communication
 ***************************/
 
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(http);
 
 // On connection to the client
 io.sockets.on('connection', function(socket){
