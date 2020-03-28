@@ -43,7 +43,7 @@ function gameState(hash) {
 ***************************/
 
 // On connection to the client
-io.sockets.on('connection', function(socket){
+io.socket.on('connection', function(socket){
 	log('client connected');
 	// Let the client know that the server is ready
 	socket.emit('serverReady');
