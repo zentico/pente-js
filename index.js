@@ -1,3 +1,4 @@
+var port = process.env.PORT || 8080
 var adler32 = require('./lib/adler32');
 var Game = require('./lib/game');
 var express = require('express');
@@ -6,8 +7,8 @@ var http = require('http').Server(app);
 
 app.use(express.static(__dirname + '/public'));
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
 
 
