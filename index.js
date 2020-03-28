@@ -1,17 +1,19 @@
-var adler32 = require('./lib/adler32');
-var Game = require('./lib/game');
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-// Let Heroku decide port
-var port = process.env.PORT || 8080;
+'use strict';
+
+const express = require('express');
+const io = require('socket.io');
+
+const PORT = process.env.PORT || 3000;
+const INDEX = '/index.html';
+
+const app = express()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 app.use(express.static(__dirname + '/public'));
 
-http.listen(port, function(){
-  console.log('listening on *:' + port);
-});
-
+var adler32 = require('./lib/adler32');
+var Game = require('./lib/game');
 
 var DEBUG = true;
 var ALLGAMES = {}; //
@@ -41,8 +43,6 @@ function gameState(hash) {
 /***************************
     Socket Communication
 ***************************/
-
-var io = require('socket.io')(http);
 
 // On connection to the client
 io.sockets.on('connection', function(socket){
