@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const io = require('socket.io');
+const socketIO = require('socket.io');
 
 const PORT = process.env.PORT || 3000;
 const INDEX = '/index.html';
@@ -9,6 +9,8 @@ const INDEX = '/index.html';
 const app = express()
   .use((req, res) => res.sendFile(INDEX, { root: __dirname + '/public'}))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const io = socketIO(app);
 
 var adler32 = require('./lib/adler32');
 var Game = require('./lib/game');
@@ -43,7 +45,7 @@ function gameState(hash) {
 ***************************/
 
 // On connection to the client
-io.on('connection', function(socket){
+io.sockets.on('connection', function(socket){
 	log('client connected');
 	// Let the client know that the server is ready
 	socket.emit('serverReady');
