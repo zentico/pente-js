@@ -1,4 +1,3 @@
-const https = require('https');
 var adler32 = require('./lib/adler32');
 var Game = require('./lib/game');
 var express = require('express');
